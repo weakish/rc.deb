@@ -1,0 +1,74 @@
+#!/usr/bin/make -f
+
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+configure_flags = --build $(DEB_BUILD_GNU_TYPE)
+ifneq "$(DEB_BUILD_GNU_TYPE)" "$(DEB_HOST_GNU_TYPE)"
+	configure_flags += --host $(DEB_HOST_GNU_TYPE)
+endif
+
+cflags = $(shell dpkg-buildflags --get CFLAGS) -Werror=array-bounds -fvisibility=hidden
+cppflags = $(shell dpkg-buildflags --get CPPFLAGS)
+ldflags = $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+configure_flags += \
+	--prefix=/usr \
+	--mandir='$${prefix}/share/man' \
+	--with-edit=gnu \
+	--with-addon \
+	CFLAGS='$(cflags)' \
+	CPPFLAGS='$(cppflags)' \
+	LDFLAGS='$(ldflags)' \
+
+autoconf-stamp: debian/control
+	autoreconf -vfi
+	touch $(@)
+
+obj/config.status: autoconf-stamp
+	mkdir -p $(dir $@)
+	cd obj && ../configure $(configure_flags) 
+
+parse.output:
+	byacc -v -o parse.c parse.y
+
+obj/build-stamp: obj/config.status parse.output
+	$(MAKE) -C obj
+ifeq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
+	cd obj && ./rc -p < ../trip.rc
+endif
+	touch $(@)
+
+.PHONY: build build-arch build-indep
+build build-arch: obj/build-stamp
+
+.PHONY: binary binary-arch binary-indep
+binary binary-arch: obj/build-stamp
+	dh_testroot
+	dh_prep
+	$(MAKE) -C obj DESTDIR=../debian/rc install
+	dh_installdocs
+	dh_installmenu
+	dh_installman
+	dh_installchangelogs
+	dh_link
+	dh_strip
+	dh_buildinfo
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+.PHONY: clean
+clean:
+	dh_clean
+	rm -rf obj/ autoconf-stamp
+	rm -f parse.output
+
+.SECONDARY:
+.NOTPARALLEL:
+
+# vim:ts=4 sw=4 noet

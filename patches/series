@@ -1,0 +1,4 @@
+which-error-handling.diff
+panic-attribute-noreturn.diff
+trip-hide-envvars.diff
+manpage-typography.diff

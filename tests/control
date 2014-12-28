@@ -1,0 +1,6 @@
+Tests: tests
+Depends: rc, procps
+Restrictions: allow-stderr
+
+Tests: adequate
+Depends: rc, adequate

@@ -1,0 +1,2 @@
+?package(rc):needs="text" section="Applications/Shells" \
+    title="rc" command="/usr/bin/rc"
