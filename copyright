@@ -4,11 +4,14 @@ written by Byron Rakitzis, and is currently maintained by Toby Goodwin
 
 The package was downloaded from <http://tobold.org/article/rc>.
 
+The rcshell.vim (syntax highlight for vim) is in public domain.
+
 This package was maintained by:
 
  - Dale Scheetz <dwarf@polaris.net> (1998-1999);
  - Decklin Foster <decklin@red-bean.com> (2000-2006);
  - Jakub Wilk <jwilk@debian.org> (since 2011).
+ - Jakukyo Friel <weakish@gmail.com> (since 2014).
 
 License:
 
