@@ -1,3 +1,10 @@
+rc (1.7.2-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add syntax highlight file for vim. 
+
+ -- Jakukyo Friel <weakish@gmail.com>  Fri, 19 Dec 2014 23:19:50 +0800
+
 rc (1.7.2-1) unstable; urgency=low
 
   * New upstream release.

@@ -1,0 +1,3 @@
+debian/rc.yaml usr/share/vim/registry
+debian/rcshell.vim/ftdetect/rcshell.vim usr/share/rcshell.vim/ftdetect
+debian/rcshell.vim/syntax/rcshell.vim usr/share/rcshell.vim/syntax

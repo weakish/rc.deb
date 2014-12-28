@@ -51,6 +51,7 @@ binary binary-arch: obj/build-stamp
 	dh_installmenu
 	dh_installman
 	dh_installchangelogs
+	dh_install
 	dh_link
 	dh_strip
 	dh_buildinfo
