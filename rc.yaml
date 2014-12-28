@@ -1,7 +1,7 @@
 addon: rcshell.vim
 description: "syntax highlight file for the rc shell scripting language"
 basedir: /usr/share/rcshell.vim/
-disabledby: "au BufRead,BufNewFile .rcrc*,rcrc,*.rc setfiletype rcshell"
+disabledby: "let g:loaded_rcshell = 1"
 files:
   - syntax/rcshell.vim
   - ftdetect/rcshell.vim
